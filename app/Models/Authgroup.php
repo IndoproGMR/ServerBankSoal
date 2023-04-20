@@ -39,4 +39,37 @@ class Authgroup extends Model
     {
         return $this->findAll();
     }
+
+    public function seeallgrupperm()
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('auth_groups_permissions');
+        $builder->select('auth_groups.name as grupname , auth_permissions.name as permname');
+        $builder->join('auth_groups', 'auth_groups.id=auth_groups_permissions.group_id');
+        $builder->join('auth_permissions', 'auth_permissions.id=auth_groups_permissions.permission_id');
+        $quary = $builder->get();
+        return $quary->getResult();
+    }
+
+    public function seeallusergrup()
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('auth_groups_users');
+        $builder->select('auth_groups.name as grupname , users.username as usersname');
+        $builder->join('auth_groups', 'auth_groups.id = auth_groups_users.group_id');
+        $builder->join('users', 'users.id = auth_groups_users.user_id');
+        $quary = $builder->get();
+        return $quary->getResult();
+    }
+
+    public function seealluserperm()
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('auth_users_permissions');
+        $builder->select('users.username as usersname , auth_permissions.name as permname');
+        $builder->join('users', 'users.id=auth_users_permissions.user_id');
+        $builder->join('auth_permissions', 'auth_permissions.id=auth_users_permissions.permission_id');
+        $quary = $builder->get();
+        return $quary->getResult();
+    }
 }
