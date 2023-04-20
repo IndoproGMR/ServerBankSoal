@@ -35,6 +35,13 @@ class Authperm extends Model
             'description' => $diskripsi,
         ]);
     }
+
+    public function delpermi(int $id)
+    {
+        return $this->delete($id);
+    }
+
+
     public function seeall()
     {
         return $this->findAll();

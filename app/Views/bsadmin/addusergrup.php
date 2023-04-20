@@ -36,6 +36,7 @@ $data['title'] = "admin panel";
                 <th scope="col">#</th>
                 <th scope="col">UserName</th>
                 <th scope="col">Group</th>
+                <th scope="col">delete</th>
             </tr>
         </thead>
         <tbody>
@@ -44,6 +45,13 @@ $data['title'] = "admin panel";
                     <th scope="row"><?= $num++ ?></th>
                     <td><?= esc($alldata_item->usersname) ?></td>
                     <td><?= esc($alldata_item->grupname) ?></td>
+                    <td>
+                        <form action="<?= base_url() ?>admin/delete/usergroup" method="post">
+                            <input hidden type="text" name="user_id" id="user_id" value="<?= esc($alldata_item->userid) ?>">
+                            <input hidden type="text" name="id_Group" id="id_Group" value="<?= esc($alldata_item->grupid) ?>">
+                            <input type="submit" value="Delete">
+                        </form>
+                    </td>
                 </tr>
             <?php endforeach ?>
         </tbody>

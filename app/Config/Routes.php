@@ -41,6 +41,8 @@ $routes->get('/admin', 'Bsadmin::index', ['filter' => 'role:admin']);
 $routes->get('/admin/input', "Bsadmin::inputindex", ['filter' => 'role:admin']);
 $routes->get('/admin/input/(:segment)', 'Bsadmin::inputview/$1', ['filter' => 'role:admin']); // menambahkan perm
 $routes->post('/admin/input/(:segment)', 'Bsadmin::adddata/$1', ['filter' => 'role:admin']);  // menambahkan perm
+$routes->post('/admin/delete/(:segment)', 'Bsadmin::deldata/$1', ['filter' => 'role:admin']);  // menambahkan perm
+
 
 //// !user
 $routes->get('/user', 'UsersController::index', ['filter' => 'role:default,admin']); // user interface

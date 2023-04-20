@@ -4,7 +4,7 @@ $permi = new \App\Models\Authperm();
 $data['title'] = "admin panel";
 ?>
 <?= view('template/header', $data); ?>
-<form action="<?= base_url('admin/input/grouperm') ?>" method="post">
+<form action="<?= base_url('admin/input/groupperm') ?>" method="post">
     <select name="grup" id="grup" class="form-select form-select-lg mb-3" aria-label=".form-select-lg">
         <?php foreach ($grup->seeall() as $item) : ?>
             <option value="<?= esc($item['id']) ?>"><?= esc($item['name']) ?></option>
@@ -34,6 +34,7 @@ $data['title'] = "admin panel";
                 <th scope="col">#</th>
                 <th scope="col">Group name</th>
                 <th scope="col">Permission</th>
+                <th scope="col">delete</th>
             </tr>
         </thead>
         <tbody>
@@ -42,6 +43,13 @@ $data['title'] = "admin panel";
                     <th scope="row"><?= $num++ ?></th>
                     <td><?= esc($alldata_item->grupname) ?></td>
                     <td><?= esc($alldata_item->permname) ?></td>
+                    <td>
+                        <form action="<?= base_url() ?>admin/delete/groupperm" method="post">
+                            <input hidden type="text" name="grup" id="grup" value="<?= esc($alldata_item->grupid) ?>">
+                            <input hidden type="text" name="userpermi" id="userpermi" value="<?= esc($alldata_item->permid) ?>">
+                            <input type="submit" value="Delete">
+                        </form>
+                    </td>
                 </tr>
             <?php endforeach ?>
         </tbody>

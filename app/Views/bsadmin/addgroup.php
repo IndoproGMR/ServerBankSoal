@@ -22,6 +22,7 @@ $data['title'] = "admin panel";
                 <th scope="col">#</th>
                 <th scope="col">Group name</th>
                 <th scope="col">Diskripsi</th>
+                <th scope="col">delete</th>
             </tr>
         </thead>
         <tbody>
@@ -30,6 +31,12 @@ $data['title'] = "admin panel";
                     <th scope="row"><?= $num++ ?></th>
                     <td><?= esc($alldata_item['name']) ?></td>
                     <td><?= esc($alldata_item['description']) ?></td>
+                    <td>
+                        <form action="<?= base_url() ?>admin/delete/group" method="post">
+                            <input hidden type="text" name="id_Group" id="id_Group" value="<?= esc($alldata_item['id']) ?>">
+                            <input type="submit" value="Delete">
+                        </form>
+                    </td>
                 </tr>
             <?php endforeach ?>
         </tbody>

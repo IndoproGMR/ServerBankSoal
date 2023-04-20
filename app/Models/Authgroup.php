@@ -35,6 +35,12 @@ class Authgroup extends Model
             'description' => $diskripsi,
         ]);
     }
+
+    public function delgrup(int $id)
+    {
+        return $this->delete($id);
+    }
+
     public function seeall()
     {
         return $this->findAll();
@@ -44,7 +50,7 @@ class Authgroup extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('auth_groups_permissions');
-        $builder->select('auth_groups.name as grupname , auth_permissions.name as permname');
+        $builder->select('auth_groups.name as grupname , auth_permissions.name as permname, auth_groups.id as grupid, auth_permissions.id as permid');
         $builder->join('auth_groups', 'auth_groups.id=auth_groups_permissions.group_id');
         $builder->join('auth_permissions', 'auth_permissions.id=auth_groups_permissions.permission_id');
         $quary = $builder->get();
@@ -55,7 +61,7 @@ class Authgroup extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('auth_groups_users');
-        $builder->select('auth_groups.name as grupname , users.username as usersname');
+        $builder->select('auth_groups.name as grupname , users.username as usersname,auth_groups.id as grupid,users.id as userid');
         $builder->join('auth_groups', 'auth_groups.id = auth_groups_users.group_id');
         $builder->join('users', 'users.id = auth_groups_users.user_id');
         $quary = $builder->get();
@@ -66,7 +72,7 @@ class Authgroup extends Model
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('auth_users_permissions');
-        $builder->select('users.username as usersname , auth_permissions.name as permname');
+        $builder->select('users.username as usersname , auth_permissions.name as permname, users.id as userid ,auth_permissions.id as permid');
         $builder->join('users', 'users.id=auth_users_permissions.user_id');
         $builder->join('auth_permissions', 'auth_permissions.id=auth_users_permissions.permission_id');
         $quary = $builder->get();

@@ -23,6 +23,7 @@ $data['title'] = "admin panel";
                 <th scope="col">#</th>
                 <th scope="col">Nama Mata Pelajaran</th>
                 <th scope="col">Diskripsi</th>
+                <th scope="col">delete</th>
             </tr>
         </thead>
         <tbody>
@@ -31,6 +32,12 @@ $data['title'] = "admin panel";
                     <th scope="row"><?= $num++ ?></th>
                     <td><?= esc($alldata_item['NamaMapel']) ?></td>
                     <td><?= esc($alldata_item['description']) ?></td>
+                    <td>
+                        <form action="<?= base_url() ?>admin/delete/mapel" method="post">
+                            <input hidden type="text" name="id_mapel" id="id_mapel" value="<?= esc($alldata_item['idMapel']) ?>">
+                            <input type="submit" value="Delete">
+                        </form>
+                    </td>
                 </tr>
             <?php endforeach ?>
         </tbody>

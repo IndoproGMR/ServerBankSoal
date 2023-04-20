@@ -33,6 +33,11 @@ class Bslvlapi extends Model
         ]);
     }
 
+    public function dellvlapi(int $id)
+    {
+        return $this->delete($id);
+    }
+
     public function seeall()
     {
         return $this->findAll();

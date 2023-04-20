@@ -9,11 +9,7 @@ use App\Models\Bsbahasa;
 use App\Models\Bslvlapi;
 use App\Models\Bsmapel;
 use App\Models\Bsusers;
-use Myth\Auth\Entities\Permission;
 use Myth\Auth\Models\GroupModel;
-
-// use App\Models\Authg;
-// use App\Models\Authperm;
 
 class Bsadmin extends BaseController
 {
@@ -43,12 +39,11 @@ class Bsadmin extends BaseController
         // return " input index";
         return view('bsadmin/inputindex');
     }
+
     public function inputview($yangdiinputkan)
     {
-        if (!logged_in())        throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-        if (!in_groups("admin")) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-
-
+        if (!logged_in())              throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        if (!in_groups("admin"))       throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         switch ($yangdiinputkan) {
             case 'group':
                 $model = model(Authgroup::class);
@@ -80,17 +75,13 @@ class Bsadmin extends BaseController
                 break;
 
             case 'usergroup':
-                $model = model(GroupModel::class);
-                // $model = model(Bsmapel::class);
                 $model = model(Authgroup::class);
-
                 $data['alldata'] = $model->seeallusergrup();
-                // d($data['alldata']);
                 return view('bsadmin/addusergrup', $data);
                 break;
 
             case 'groupperm':
-                $model = model(GroupModel::class);
+                // $model = model(GroupModel::class);
                 // $model = model(Bsmapel::class);
                 $model = model(Authgroup::class);
 
@@ -108,15 +99,17 @@ class Bsadmin extends BaseController
                 // d($data['alldata']);
                 return view('bsadmin/adduserperm', $data);
                 break;
+
             default:
-                return "error";
+                return redirect()->to('admin/input');
                 break;
         }
     }
+
     public function adddata($yangdiinputkan)
     {
-        if (!logged_in())        throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-        if (!in_groups("admin")) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        if (!logged_in())              throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        if (!in_groups("admin"))       throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         switch ($yangdiinputkan) {
 
                 ////////// !Grup
@@ -134,9 +127,11 @@ class Bsadmin extends BaseController
                 ])) {
                     return view('bsadmin/addgroup', $data);
                 }
-                echo "masuk ke database";
 
-                $model->addgroup($postdata['nama_Group'], $postdata['diskripsi_Group']);
+                if ($model->addgroup($postdata['nama_Group'], $postdata['diskripsi_Group'])) {
+                    return redirect()->to('admin/input/group');
+                }
+
                 break;
 
                 ////////// !Permission
@@ -154,8 +149,9 @@ class Bsadmin extends BaseController
                 ])) {
                     return view('bsadmin/addperm', $data);
                 }
-                echo "masuk ke database";
-                $model->addpermi($postdata['nama_Perm'], $postdata['diskripsi_Perm']);
+                if ($model->addpermi($postdata['nama_Perm'], $postdata['diskripsi_Perm'])) {
+                    return redirect()->to('admin/input/permission');
+                }
                 break;
 
                 ////////// !bahasa
@@ -174,8 +170,10 @@ class Bsadmin extends BaseController
                     $data['validerror'] = "mohon isi dengan benar";
                     return view('bsadmin/addbahasa', $data);
                 }
-                echo "masuk ke database";
-                $model->addbahasa($postdata['nama_bahasa'], $postdata['diskripsi_bahasa']);
+
+                if ($model->addbahasa($postdata['nama_bahasa'], $postdata['diskripsi_bahasa'])) {
+                    return redirect()->to('admin/input/bahasa');
+                }
                 break;
 
                 ////////// !lvlapi
@@ -194,8 +192,11 @@ class Bsadmin extends BaseController
                     $data['validerror'] = "mohon isi dengan benar";
                     return view('bsadmin/addlvlapi', $data);
                 }
-                echo "masuk ke database";
-                $model->addlvlapi($postdata['lvlapi'], $postdata['diskripsi_lvlapi']);
+
+                if ($model->addlvlapi($postdata['lvlapi'], $postdata['diskripsi_lvlapi'])) {
+                    return redirect()->to('admin/input/lvlapi');
+                }
+
                 break;
 
 
@@ -215,14 +216,17 @@ class Bsadmin extends BaseController
                     $data['validerror'] = "mohon isi dengan benar";
                     return view('bsadmin/addmapel', $data);
                 }
-                echo "masuk ke database";
-                $model->addmapel($postdata['nama_mapel'], $postdata['diskripsi_mapel']);
+
+                if ($model->addmapel($postdata['nama_mapel'], $postdata['diskripsi_mapel'])) {
+                    return redirect()->to('admin/input/mapel');
+                }
+
                 break;
 
                 ////////// !usergroup
             case 'usergroup':
-                $model = model(Bsmapel::class);
-                $data['alldata'] = $model->seeall();
+                $model = model(Authgroup::class);
+                $data['alldata'] = $model->seeallusergrup();
                 $postdata = $this->request->getPost([
                     'User',
                     'usergrup'
@@ -235,9 +239,11 @@ class Bsadmin extends BaseController
                     $data['validerror'] = "mohon isi dengan benar";
                     return view('bsadmin/addusergrup', $data);
                 }
-                echo "masuk ke database";
+
                 $grupmodel = model(GroupModel::class);
-                $grupmodel->addUserToGroup($postdata['User'], $postdata['usergrup']);
+                if ($grupmodel->addUserToGroup($postdata['User'], $postdata['usergrup'])) {
+                    return redirect()->to('admin/input/usergroup');
+                }
                 break;
 
                 ////////// !userperm
@@ -258,11 +264,14 @@ class Bsadmin extends BaseController
                 }
                 echo "masuk ke database";
                 $permi = new \Myth\Auth\Models\PermissionModel();
-                $permi->addPermissionToUser($postdata['userpermi'], $postdata['User']);
+
+                if ($permi->addPermissionToUser($postdata['userpermi'], $postdata['User'])) {
+                    return redirect()->to('admin/input/userperm');
+                }
                 break;
 
-                ////////// !grouperm
-            case 'grouperm':
+                ////////// !groupperm
+            case 'groupperm':
                 $model = model(Bsmapel::class);
                 $data['alldata'] = $model->seeall();
                 $postdata = $this->request->getPost([
@@ -277,12 +286,204 @@ class Bsadmin extends BaseController
                     $data['validerror'] = "mohon isi dengan benar";
                     return view('bsadmin/adduserperm', $data);
                 }
-                echo "masuk ke database";
+                // echo "masuk ke database";
                 $grupmodel = model(GroupModel::class);
-                $grupmodel->addPermissionToGroup($postdata['userpermi'], $postdata['grup']);
+                if ($grupmodel->addPermissionToGroup($postdata['userpermi'], $postdata['grup'])) {
+                    return redirect()->to('admin/input/groupperm');
+                }
                 break;
             default:
-                echo "error";
+                return redirect()->to('admin/input');
+                break;
+        }
+    }
+
+    public function deldata($yangdiinputkan)
+    {
+        if (!logged_in())              throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        if (!in_groups("admin"))       throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        if (!has_permission('D_Soal')) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        switch ($yangdiinputkan) {
+
+
+                ////////// !Grup
+            case 'group':
+                $model = model(Authgroup::class);
+                $data['alldata'] = $model->seeall();
+                $postdata = $this->request->getPost([
+                    'id_Group',
+                ]);
+
+                if (!$this->validateData($postdata, [
+                    'id_Group'      => 'required'
+                ])) {
+                    $data['alldata'] = $model->seeall();
+                    $data['validerror'] = "mohon isi dengan benar";
+                    return view('bsadmin/addgroup', $data);
+                }
+
+                if ($model->delgrup($postdata['id_Group'])) {
+                    return redirect()->to('admin/input/group');
+                }
+
+                break;
+
+                ////////// !Permission
+            case 'permission':
+                $model = model(Authperm::class);
+                $data['alldata'] = $model->seeall();
+                $postdata = $this->request->getPost([
+                    'id_permi',
+                ]);
+
+                if (!$this->validateData($postdata, [
+                    'id_permi'      => 'required'
+                ])) {
+                    return view('bsadmin/addperm', $data);
+                }
+                if ($model->delpermi($postdata['id_permi'])) {
+                    return redirect()->to('admin/input/permission');
+                }
+                break;
+
+                ////////// !bahasa
+            case 'bahasa':
+                $model = model(Bsbahasa::class);
+                $postdata = $this->request->getPost([
+                    'id_bahasa',
+                ]);
+
+                if (!$this->validateData($postdata, [
+                    'id_bahasa'      => 'required',
+                ])) {
+                    $data['alldata'] = $model->seeall();
+                    $data['validerror'] = "mohon isi dengan benar";
+                    return view('bsadmin/addbahasa', $data);
+                }
+
+                if ($model->delbahasa($postdata['id_bahasa'])) {
+                    return redirect()->to('admin/input/bahasa');
+                }
+                break;
+
+                ////////// !lvlapi
+            case 'lvlapi':
+                $model = model(Bslvlapi::class);
+                $data['alldata'] = $model->seeall();
+                $postdata = $this->request->getPost([
+                    'idlvlapi',
+                ]);
+
+                if (!$this->validateData($postdata, [
+                    'idlvlapi'      => 'required'
+                ])) {
+                    $data['validerror'] = "mohon isi dengan benar";
+                    return view('bsadmin/addlvlapi', $data);
+                }
+
+                if ($model->dellvlapi($postdata['idlvlapi'])) {
+                    return redirect()->to('admin/input/lvlapi');
+                }
+                break;
+
+
+                ////////// !mapel
+            case 'mapel':
+                $model = model(Bsmapel::class);
+                $data['alldata'] = $model->seeall();
+                $postdata = $this->request->getPost([
+                    'id_mapel',
+                ]);
+
+                if (!$this->validateData($postdata, [
+                    'id_mapel'      => 'required'
+                ])) {
+                    $data['validerror'] = "mohon isi dengan benar";
+                    return view('bsadmin/addmapel', $data);
+                }
+
+                if ($model->delmapel($postdata['id_mapel'])) {
+                    return redirect()->to('admin/input/mapel');
+                }
+
+                break;
+
+                ////////// !usergroup
+            case 'usergroup':
+                $model = model(Authgroup::class);
+                $data['alldata'] = $model->seeallusergrup();
+                $postdata = $this->request->getPost([
+                    'user_id',
+                    'id_Group'
+                ]);
+
+                if (!$this->validateData($postdata, [
+                    'user_id'      => 'required',
+                    'id_Group'     => 'required'
+                ])) {
+                    $data['validerror'] = "mohon isi dengan benar";
+                    return view('bsadmin/addusergrup', $data);
+                }
+
+                $grupmodel = model(GroupModel::class);
+                if ($grupmodel->removeUserFromGroup($postdata['user_id'], $postdata['id_Group'])) {
+                    return redirect()->to('admin/input/usergroup');
+                }
+                break;
+
+                ////////// !userperm
+            case 'userperm':
+                $model = model(Bsmapel::class);
+                $data['alldata'] = $model->seeall();
+                $postdata = $this->request->getPost([
+                    'User',
+                    'userpermi'
+                ]);
+
+                if (!$this->validateData($postdata, [
+                    'User'      => 'required',
+                    'userpermi' => 'required'
+                ])) {
+                    $data['validerror'] = "mohon isi dengan benar";
+                    return view('bsadmin/addgrupperm', $data);
+                }
+                echo "masuk ke database";
+                $permi = new \Myth\Auth\Models\PermissionModel();
+
+                if ($permi->removePermissionFromUser($postdata['userpermi'], $postdata['User'])) {
+                    return redirect()->to('admin/input/userperm');
+                }
+                break;
+
+                ////////// !groupperm
+            case 'groupperm':
+                $model = model(Authgroup::class);
+                $data['alldata'] = $model->seeall();
+                $postdata = $this->request->getPost([
+                    'grup',
+                    'userpermi'
+                ]);
+
+                if (!$this->validateData($postdata, [
+                    'grup'      => 'required',
+                    'userpermi' => 'required'
+                ])) {
+                    $data['validerror'] = "mohon isi dengan benar";
+                    return view('bsadmin/adduserperm', $data);
+                }
+
+                $grupmodel = model(GroupModel::class);
+                if ($grupmodel->removePermissionFromGroup($postdata['userpermi'], $postdata['grup'])) {
+                    return redirect()->to('admin/input/groupperm');
+                }
+                break;
+
+
+
+
+
+            default:
+                return redirect()->to('admin/input');
                 break;
         }
     }

@@ -36,4 +36,9 @@ class Bsbahasa extends Model
     {
         return $this->findAll();
     }
+
+    public function delbahasa(int $id)
+    {
+        return $this->delete($id);
+    }
 }
