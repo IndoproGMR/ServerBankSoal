@@ -16,7 +16,7 @@ class Filters extends BaseConfig
      * make reading things nicer and simpler.
      */
     public array $aliases = [
-        'loginlimiter'  => \App\Filters\Loginlimiter::class,
+        // 'loginlimiter'  => \App\Filters\Loginlimiter::class,
         'csrf'          => CSRF::class,
         'toolbar'       => DebugToolbar::class,
         'honeypot'      => Honeypot::class,
@@ -73,7 +73,7 @@ class Filters extends BaseConfig
      */
     public array $filters = [
         'throttle'     => ['before' => ['/api/*']],
-        'Loginlimiter' => ['before' => ['/login*']],
+        // 'Loginlimiter' => ['before' => ['/login*']],
         // 'login' => ['before' => ['/testadmin', '/testuser']],
         // 'login' => ['before' => ['/']],
         // 'login' => ['before' => ['nama routenya','tamahan yang akan di filter']],

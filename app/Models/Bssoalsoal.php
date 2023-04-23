@@ -78,4 +78,13 @@ class Bssoalsoal extends Model
     {
         return $this->find();
     }
+    public function detailsoalbyid(int $id)
+    {
+        return $this->where('idSoalSoal', $id)->find();
+    }
+
+    public function detailsoalbyiduser(int $id)
+    {
+        return $this->where('user_id', $id)->find();
+    }
 }

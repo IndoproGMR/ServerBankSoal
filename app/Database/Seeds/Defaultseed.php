@@ -87,6 +87,11 @@ class Defaultseed extends Seeder
             ],
             [
                 'id' => 4,
+                'name' => 'Guru',
+                'description' => 'Guru'
+            ],
+            [
+                'id' => 10,
                 'name' => 'Ban',
                 'description' => 'Tidak dapat mengakses apapun'
             ]
@@ -95,54 +100,50 @@ class Defaultseed extends Seeder
             [
                 'id' => 1,
                 'name' => 'C_Soal',
-                'description' => 'Membuat Soal'
+                'description' => 'Membuat Soal'       // admin,validator,guru,default only
             ],
             [
                 'id' => 2,
                 'name' => 'U_Soal',
-                'description' => 'mengaUpdate Soal'
+                'description' => 'mengaUpdate Soal'   // admin,validator,guru,default only
             ],
             [
                 'id' => 3,
                 'name' => 'D_Soal',
-                'description' => 'Menghapus Soal'
+                'description' => 'Menghapus Soal'     // admin,validator only
             ],
             [
                 'id' => 4,
                 'name' => 'Validasi_Soal',
-                'description' => 'Memvalidasi Soal'
+                'description' => 'Memvalidasi Soal'   // admin,validator only
             ],
             [
                 'id' => 5,
                 'name' => 'C_SoalSet',
-                'description' => 'Menghapus SoalSet'
+                'description' => 'Menghapus SoalSet'   // admin,validator,guru,default only
             ],
             [
                 'id' => 6,
                 'name' => 'U_SoalSet',
-                'description' => 'MengaUpdate SoalSet'
+                'description' => 'MengaUpdate SoalSet' // admin,validator,guru,default only
             ],
             [
                 'id' => 7,
                 'name' => 'D_SoalSet',
-                'description' => 'MengaHapus SoalSet'
+                'description' => 'MengaHapus SoalSet'  // admin only
             ],
             [
                 'id' => 8,
                 'name' => 'CRUD_Grupperm',
-                'description' => 'CRUD grupPermission'
+                'description' => 'CRUD grupPermission' // admin only
+            ],
+            [
+                'id' => 9,
+                'name' => 'R_JawabanOrang',
+                'description' => 'Melihat jawaban orang' // admin,validator,guru only
             ],
         ];
         $data['grupperm'] = [
-            // ! Admin
-            [
-                'group_id' => 2, // Admin
-                'permission_id' => 7,
-            ],
-            [
-                'group_id' => 2, // Admin
-                'permission_id' => 8,
-            ],
             // ! User
             [
                 'group_id' => 1, // default
@@ -160,6 +161,13 @@ class Defaultseed extends Seeder
                 'group_id' => 1, // default
                 'permission_id' => 6, // u_soalset
             ],
+
+            // ! Guru
+            [
+                'group_id' => 4, // Guru
+                'permission_id' => 9,
+            ],
+
             // ! Validator
             [
                 'group_id' => 3, // Validator
@@ -168,6 +176,25 @@ class Defaultseed extends Seeder
             [
                 'group_id' => 3, // Validator
                 'permission_id' => 4,
+            ],
+            [
+                'group_id' => 3, // Validator
+                'permission_id' => 9,
+            ],
+
+
+            // ! Admin
+            [
+                'group_id' => 2, // Admin
+                'permission_id' => 7,
+            ],
+            [
+                'group_id' => 2, // Admin
+                'permission_id' => 8,
+            ],
+            [
+                'group_id' => 3, // Validator
+                'permission_id' => 9,
             ],
         ];
 

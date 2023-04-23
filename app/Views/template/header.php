@@ -13,7 +13,9 @@
 </head>
 <style>
     body {
-        padding: 10px;
+        /* padding: 10px; */
+        overflow-x: hidden;
+
     }
 
     /* a {
@@ -37,6 +39,12 @@
         background-color: #ddd;
         color: black;
     }
+
+    .konten {
+        padding: 10px;
+
+    }
 </style>
+
 
 <body>

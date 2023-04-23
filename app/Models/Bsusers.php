@@ -42,6 +42,11 @@ class Bsusers extends Model
         return $name['username'];
     }
 
+    public function seeidbyname(String $username)
+    {
+        return $this->where('username', $username)->findColumn('id')[0];
+    }
+
     public function alluserid()
     {
         $id = $this->orderBy('username', 'asc')->findColumn('id');
@@ -50,7 +55,7 @@ class Bsusers extends Model
 
     public function seeallname()
     {
-        return $this->findColumn('username');;
+        return $this->findColumn('username');
     }
 
     public function seeuserbygrupname(String $nama)
@@ -63,5 +68,14 @@ class Bsusers extends Model
         $builder->where('auth_groups.name', $nama);
         $quary = $builder->get();
         return $quary->getResult();
+    }
+
+    public function is_user_existByname(String $username)
+    {
+        $data = $this->where('username', $username)->countAllResults();
+        if ($this->where('username', $username)->countAllResults() > 0) {
+            return true;
+        }
+        return false;
     }
 }

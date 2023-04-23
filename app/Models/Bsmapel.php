@@ -41,4 +41,9 @@ class Bsmapel extends Model
     {
         return $this->findAll();
     }
+
+    public function seemapelbyid(int $id)
+    {
+        return $this->where('idMapel', $id)->find();
+    }
 }

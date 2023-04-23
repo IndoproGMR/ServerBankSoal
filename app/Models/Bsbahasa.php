@@ -37,6 +37,11 @@ class Bsbahasa extends Model
         return $this->findAll();
     }
 
+    public function seebahasabyid(int $id)
+    {
+        return $this->where('idBahasa', $id)->find();
+    }
+
     public function delbahasa(int $id)
     {
         return $this->delete($id);

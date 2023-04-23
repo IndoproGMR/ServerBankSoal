@@ -32,6 +32,11 @@ class Bssoalset extends Model
         return $this->where('user_id', $userid)->findAll();
     }
 
+    public function seesoalsetbydi(int $id)
+    {
+        return $this->where('idSoalSet', $id)->find();
+    }
+
     public function countdb()
     {
         return $this->countAllResults();

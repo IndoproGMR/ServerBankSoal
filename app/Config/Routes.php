@@ -51,7 +51,10 @@ $routes->get('/soal/input/(:segment)', 'UsersController::inputview/$1', ['filter
 $routes->post('/soal/input/(:segment)', 'UsersController::adddata/$1', ['filter' => 'role:admin,validatorSoal,default']);    // Create
 $routes->post('/soal/delete/(:segment)', 'UsersController::deldata/$1', ['filter' => 'role:admin,validatorSoal,default']);   // Delete
 
-$routes->get('/soal/detail/(:segment)', 'UsersController::detailsoal/$1', ['filter' => 'role:admin,validatorSoal,default']); // Detail
+
+$routes->get('/soal/show', 'Detailsoal::index', ['filter' => 'role:admin,validatorSoal,default']); // tunjukan untuk semua soal
+$routes->get('/soal/show/user', 'Detailsoal::showsoal', ['filter' => 'role:admin,validatorSoal,default']); // Detail untuk user sendiri atau user tertentu dengan GET?user={nama}
+$routes->get('/soal/detail/(:num)', 'Detailsoal::detailsoal/$1', ['filter' => 'role:admin,validatorSoal,default']); // Detail soal
 
 
 //// !validator soal
