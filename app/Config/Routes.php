@@ -29,28 +29,34 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+
+
 //// !Semua Pengguna yang belum login
 $routes->get('/', 'Home::index');
-// $routes->get('/testadmin', 'Home::testadmin', ['filter' => 'role:admin']);
-// $routes->get('/testuser', 'Home::testuser', ['filter' => 'role:admin,default']);
-// $routes->get('/admin', 'Bsadmin::index');
 
 //// !admin
-// $routes->get('/admin', 'Bsadmin::index');
-$routes->get('/admin', 'Bsadmin::index', ['filter' => 'role:admin']);
-$routes->get('/admin/input', "Bsadmin::inputindex", ['filter' => 'role:admin']);
-$routes->get('/admin/input/(:segment)', 'Bsadmin::inputview/$1', ['filter' => 'role:admin']); // menambahkan perm
-$routes->post('/admin/input/(:segment)', 'Bsadmin::adddata/$1', ['filter' => 'role:admin']);  // menambahkan perm
-$routes->post('/admin/delete/(:segment)', 'Bsadmin::deldata/$1', ['filter' => 'role:admin']);  // menambahkan perm
+$routes->get('/admin', 'Bsadmin::index', ['filter' => 'role:admin']);                          // admin Interface
+$routes->get('/admin/input', "Bsadmin::inputindex", ['filter' => 'role:admin']);               // admin link Interface
+$routes->get('/admin/input/(:segment)', 'Bsadmin::inputview/$1', ['filter' => 'role:admin']);  // Read
+$routes->post('/admin/input/(:segment)', 'Bsadmin::adddata/$1', ['filter' => 'role:admin']);   // Create
+$routes->post('/admin/delete/(:segment)', 'Bsadmin::deldata/$1', ['filter' => 'role:admin']);  // Delete
 
 
-//// !user
-$routes->get('/user', 'UsersController::index', ['filter' => 'role:default,admin']); // user interface
-$routes->get('/user/submit', 'UsersController::inputsoal', ['filter' => 'role:default,admin']); // mengirim soal
+//// !users
+$routes->get('/home', 'UsersController::index', ['filter' => 'role:admin,validatorSoal,default']); // Users interface sudah login
+
+
+//// !Soal
+$routes->get('/soal/input/(:segment)', 'UsersController::inputview/$1', ['filter' => 'role:admin,validatorSoal,default']);   // Read
+$routes->post('/soal/input/(:segment)', 'UsersController::adddata/$1', ['filter' => 'role:admin,validatorSoal,default']);    // Create
+$routes->post('/soal/delete/(:segment)', 'UsersController::deldata/$1', ['filter' => 'role:admin,validatorSoal,default']);   // Delete
+
+$routes->get('/soal/detail/(:segment)', 'UsersController::detailsoal/$1', ['filter' => 'role:admin,validatorSoal,default']); // Detail
+
 
 //// !validator soal
-$routes->get('/admin/soal', 'UsersController::index', ['filter' => 'role:validatorSoal,admin']); // user interface
-$routes->get('/admin/soal/detail/(:segment)', 'UsersController::inputsoal', ['filter' => 'role:validatorSoal,admin']); // mengirim soal
+$routes->get('/validator/soal', 'UsersController::index', ['filter' => 'role:validatorSoal,admin']); // user interface
+$routes->get('/validator/soal/detail/(:segment)', 'UsersController::inputsoal', ['filter' => 'role:validatorSoal,admin']); // mengirim soal
 
 
 //// !Apiv1

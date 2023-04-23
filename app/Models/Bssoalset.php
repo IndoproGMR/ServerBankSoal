@@ -17,12 +17,41 @@ class Bssoalset extends Model
     protected $allowedFields    = [
         'codeSoalSet',
         'user_id',
-        'description'
+        'description',
+        'edited'
     ];
+
+
+    public function seeall()
+    {
+        return $this->findAll();
+    }
+
+    public function seeallbyuser(int $userid)
+    {
+        return $this->where('user_id', $userid)->findAll();
+    }
 
     public function countdb()
     {
         return $this->countAllResults();
+    }
+
+    public function countdbbyuser(int $userid)
+    {
+        return $this->where('user_id', $userid)->countAllResults();
+    }
+
+    public function countSoalbySoalSet(int $userid, $soalsetid)
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('BS_SoalSet');
+        $builder->select('*');
+        $builder->join('BS_SoalSoal', 'BS_SoalSoal.SoalSet_id = BS_SoalSet.idSoalSet');
+        $builder->where('BS_SoalSet.idSoalSet', $soalsetid);
+        // $builder->where('BS_SoalSet.user_id', $userid);
+        $quary = $builder->get();
+        return $quary->getResult();
     }
 
     public function addsoalset(String $codeSoalSet, int $userid, String $diskripsi)
@@ -32,5 +61,14 @@ class Bssoalset extends Model
             'user_id'     => $userid,
             'description' => $diskripsi,
         ]);
+    }
+
+    public function delsoalset(int $id, int $userid)
+    {
+        return $this->where('user_id', $userid)->where('idSoalSet', $id)->delete();
+    }
+    public function delsoalsetadmin(int $id)
+    {
+        return $this->delete($id);
     }
 }

@@ -77,9 +77,10 @@ class BankSoal extends Migration
         $idd = "id$tablee";
         $fields = [
             $idd          => ['type' => 'int', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
-            'codeSoalSet' => ['type' => 'varchar', 'constraint' => 32],
+            'codeSoalSet' => ['type' => 'varchar', 'constraint' => 8],
             'user_id'     => ['type' => 'int', 'constraint' => 11, 'unsigned' => true, 'default' => 0],
             'description' => ['type' => 'varchar', 'constraint' => 255],
+            'edited'      => ['type' => 'tinyint', 'constraint' => 1, 'null' => 0, 'default' => 0],
         ];
         $this->forge->addField($fields);
         $this->forge->addKey($idd, true);
@@ -114,8 +115,8 @@ class BankSoal extends Migration
         $this->forge->addForeignKey('SoalSet_id', 'BS_SoalSet', 'idSoalSet', '', 'CASCADE');
         $this->forge->createTable("BS_$tablee", true);
 
-        // !EditedSoallog
-        $tablee = "EditedSoallog";
+        // !EditedSoalsoallog
+        $tablee = "EditedSoalsoallog";
         $idd = "id$tablee";
         $fields = [
             $idd              => ['type' => 'int', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
@@ -128,6 +129,23 @@ class BankSoal extends Migration
         $this->forge->addKey($idd, true);
         $this->forge->addForeignKey('SoalSoal_id', 'BS_SoalSoal', 'idSoalSoal', '', 'CASCADE');
         $this->forge->addForeignKey('NewSoalSoal_id', 'BS_SoalSoal', 'idSoalSoal', '', 'CASCADE');
+        $this->forge->addForeignKey('who_id', 'users', 'id', '', 'CASCADE');
+        $this->forge->createTable("BS_$tablee", true);
+
+        // !EditedSoalsetlog
+        $tablee = "EditedSoalsetlog";
+        $idd = "id$tablee";
+        $fields = [
+            $idd              => ['type' => 'int', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
+            'TimeStamp'       => ['type' => 'int', 'constraint' => 12],
+            'who_id'          => ['type' => 'int', 'constraint' => 11, 'unsigned' => true, 'default' => 0],
+            'Soalset_id'     => ['type' => 'int', 'constraint' => 11, 'unsigned' => true, 'default' => 0],
+            'NewSoalset_id'  => ['type' => 'int', 'constraint' => 11, 'unsigned' => true, 'default' => 0],
+        ];
+        $this->forge->addField($fields);
+        $this->forge->addKey($idd, true);
+        $this->forge->addForeignKey('Soalset_id', 'BS_SoalSet', 'idSoalSet', '', 'CASCADE');
+        $this->forge->addForeignKey('NewSoalset_id', 'BS_SoalSet', 'idSoalSet', '', 'CASCADE');
         $this->forge->addForeignKey('who_id', 'users', 'id', '', 'CASCADE');
         $this->forge->createTable("BS_$tablee", true);
     }

@@ -1,12 +1,12 @@
-<?php
-$data['title'] = "admin panel";
-?>
-<?= view('template/header', $data); ?>
+<?= backbutton('admin/input') ?>
+
+<?= $this->extend('template/header'); ?>
+
 <form action="<?= base_url() ?>admin/input/mapel" method="post">
     <?= csrf_field() ?>
     <input type="text" name="nama_mapel" id="nama_mapel" placeholder="nama mapel">
     <input type="text" name="diskripsi_mapel" id="diskripsi_mapel" placeholder="diskripsi">
-    <input type="submit" value="submit">
+    <input type="submit" class="btn btn-primary" value="submit">
 </form>
 
 <?php if (!empty($validerror)) {
@@ -45,3 +45,8 @@ $data['title'] = "admin panel";
 <?php else : ?>
     <h2>Tidak ada Data</h2>
 <?php endif ?>
+
+
+
+
+<?= view('template/footer'); ?>

@@ -21,14 +21,14 @@ class Bssoalsoal extends Model
         'Jawaban_salah1',
         'Jawaban_salah2',
         'Jawaban_salah3',
-        'TimeStamp',
         'lvlsoal',
         'valid',
         'edited',
         'user_id',
         'Mapel_id',
         'Bahasa_id',
-        'SoalSet_id'
+        'SoalSet_id',
+        'TimeStamp',
     ];
 
     public function addsoalsoal(
@@ -38,14 +38,13 @@ class Bssoalsoal extends Model
         String $salah1,
         String $salah2,
         String $salah3,
-        int $timestamp,
         int $lvlsoal,
         int $valid,
-        int $edited,
         int $userid,
         int $mapelid,
         int $bahasaid,
         int $soalsetid,
+        // int $timestamp,
     ) {
         return $this->db->table('BS_SoalSoal')->insert([
             'Pertanyaan_Soal' => $soal,
@@ -54,14 +53,14 @@ class Bssoalsoal extends Model
             'Jawaban_salah1'  => $salah1,
             'Jawaban_salah2'  => $salah2,
             'Jawaban_salah3'  => $salah3,
-            'TimeStamp'       => $timestamp,
             'lvlsoal'         => $lvlsoal,
             'valid'           => $valid,
-            'edited'          => $edited,
+            'edited'          => 0,
             'user_id'         => $userid,
             'Mapel_id'        => $mapelid,
             'Bahasa_id'       => $bahasaid,
-            'SoalSet_id'      => $soalsetid
+            'SoalSet_id'      => $soalsetid,
+            'TimeStamp'       => time(),
         ]);
     }
 
@@ -69,6 +68,12 @@ class Bssoalsoal extends Model
     {
         return $this->countAllResults();
     }
+
+    public function countdbbyuser(int $userid)
+    {
+        return $this->where('user_id', $userid)->countAllResults();
+    }
+
     public function seeall()
     {
         return $this->find();

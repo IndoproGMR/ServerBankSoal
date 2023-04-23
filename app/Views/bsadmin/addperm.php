@@ -1,12 +1,12 @@
-<?php
-$data['title'] = "admin panel";
-?>
-<?= view('template/header', $data); ?>
+<?= backbutton('admin/input') ?>
+
+<?= $this->extend('template/header'); ?>
+
 <form action="<?= base_url() ?>admin/input/permission" method="post">
     <?= csrf_field() ?>
     <input type="text" name="nama_Perm" id="nama_Perm" placeholder="namaperm">
     <input type="text" name="diskripsi_Perm" id="diskripsi_Perm" placeholder="diskripsi">
-    <input type="submit" value="submit">
+    <input type="submit" class="btn btn-primary" value="submit">
 </form>
 
 
@@ -46,3 +46,7 @@ $data['title'] = "admin panel";
 <?php else : ?>
     <h2>Tidak ada Data</h2>
 <?php endif ?>
+
+
+
+<?= view('template/footer'); ?>

@@ -1,10 +1,14 @@
 <?php
 $grup = new \App\Models\Authgroup();
 $users = new \App\Models\Bsusers();
-$data['title'] = "admin panel";
+
 ?>
-<?= view('template/header', $data); ?>
+<?= backbutton('admin/input') ?>
+
+<?= $this->extend('template/header'); ?>
+
 <form action="<?= base_url('admin/input/usergroup') ?>" method="post">
+    <?= csrf_field() ?>
     <select name="User" id="User" class="form-select form-select-lg mb-3" aria-label=".form-select-lg">
         <?php foreach ($users->seeall() as $item) : ?>
             <option value="<?= esc($item['id']) ?>"><?= esc($item['username']) ?></option>
@@ -16,7 +20,7 @@ $data['title'] = "admin panel";
             <option value="<?= esc($item['id']) ?>"><?= esc($item['name']) ?></option>
         <?php endforeach ?>
     </select>
-    <input type="submit" value="Submit">
+    <input type="submit" class="btn btn-primary" value="Submit">
 </form>
 
 
@@ -59,3 +63,6 @@ $data['title'] = "admin panel";
 <?php else : ?>
     <h2>Tidak ada Data</h2>
 <?php endif ?>
+
+
+<?= view('template/footer'); ?>

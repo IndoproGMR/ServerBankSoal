@@ -1,12 +1,12 @@
-<?php
-$data['title'] = "admin panel";
-?>
-<?= view('template/header', $data); ?>
+<?= backbutton('admin/input') ?>
+
+<?= $this->extend('template/header'); ?>
+
 <form action="<?= base_url() ?>admin/input/group" method="post">
     <?= csrf_field() ?>
     <input type="text" name="nama_Group" id="nama_Group" placeholder="namagroup">
     <input type="text" name="diskripsi_Group" id="diskripsi_Group" placeholder="diskripsi">
-    <input type="submit" value="submit">
+    <input type="submit" class="btn btn-primary" value="submit">
 </form>
 
 <?php if (!empty($validerror)) {
@@ -44,3 +44,8 @@ $data['title'] = "admin panel";
 <?php else : ?>
     <h2>Tidak ada Data</h2>
 <?php endif ?>
+
+
+
+
+<?= view('template/footer'); ?>

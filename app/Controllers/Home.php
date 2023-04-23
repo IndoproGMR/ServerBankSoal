@@ -6,7 +6,13 @@ class Home extends BaseController
 {
     public function index()
     {
-        return view('welcome_message');
+        $modelsoal = model(Bssoalsoal::class);
+        $modelset = model(Bssoalset::class);
+        $data['jumlahSoal'] = $modelsoal->countdb();
+        $data['jumlahSoalset'] = $modelset->countdb();
+
+
+        return view('general/index', $data);
     }
     public function testadmin()
     {

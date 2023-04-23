@@ -26,17 +26,6 @@ class Bsadmin extends BaseController
     }
     public function inputindex()
     {
-        $model = model(Bsusers::class);
-        echo $model->seename(user_id());
-        // print_r($model->alluserid());
-
-        // echo user()->username;
-
-        foreach ($model->alluserid() as $item) {
-            echo $model->seename($item) . "</br>";
-        }
-
-        // return " input index";
         return view('bsadmin/inputindex');
     }
 
@@ -44,59 +33,60 @@ class Bsadmin extends BaseController
     {
         if (!logged_in())              throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         if (!in_groups("admin"))       throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+
         switch ($yangdiinputkan) {
             case 'group':
                 $model = model(Authgroup::class);
                 $data['alldata'] = $model->seeall();
+                $data['title'] = "admin panel";
                 return view('bsadmin/addgroup', $data);
                 break;
             case 'permission':
                 $model = model(Authperm::class);
                 $data['alldata'] = $model->seeall();
+                $data['title'] = "admin panel";
                 return view('bsadmin/addperm', $data);
                 break;
 
             case 'bahasa':
                 $model = model(Bsbahasa::class);
                 $data['alldata'] = $model->seeall();
+                $data['title'] = "admin panel";
                 return view('bsadmin/addbahasa', $data);
                 break;
 
             case 'lvlapi':
                 $model = model(Bslvlapi::class);
                 $data['alldata'] = $model->seeall();
+                $data['title'] = "admin panel";
                 return view('bsadmin/addlvlapi', $data);
                 break;
 
             case 'mapel':
                 $model = model(Bsmapel::class);
                 $data['alldata'] = $model->seeall();
+                $data['title'] = "admin panel";
                 return view('bsadmin/addmapel', $data);
                 break;
 
             case 'usergroup':
                 $model = model(Authgroup::class);
                 $data['alldata'] = $model->seeallusergrup();
+                $data['title'] = "admin panel";
                 return view('bsadmin/addusergrup', $data);
                 break;
 
             case 'groupperm':
-                // $model = model(GroupModel::class);
-                // $model = model(Bsmapel::class);
                 $model = model(Authgroup::class);
-
                 $data['alldata'] = $model->seeallgrupperm();
-                // d($data['alldata']);
+                $data['title'] = "admin panel";
                 return view('bsadmin/addgrupperm', $data);
                 break;
 
             case 'userperm':
-                $model = model(GroupModel::class);
-                // $model = model(Bsmapel::class);
                 $model = model(Authgroup::class);
-
                 $data['alldata'] = $model->seealluserperm();
-                // d($data['alldata']);
+                $data['title'] = "admin panel";
                 return view('bsadmin/adduserperm', $data);
                 break;
 
@@ -108,8 +98,11 @@ class Bsadmin extends BaseController
 
     public function adddata($yangdiinputkan)
     {
-        if (!logged_in())              throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-        if (!in_groups("admin"))       throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        if (!logged_in())                     throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        if (!in_groups("admin"))              throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        if (!has_permission('CRUD_Grupperm')) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        $data['title'] = "admin panel";
+
         switch ($yangdiinputkan) {
 
                 ////////// !Grup
@@ -302,7 +295,9 @@ class Bsadmin extends BaseController
     {
         if (!logged_in())              throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         if (!in_groups("admin"))       throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-        if (!has_permission('D_Soal')) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        if (!has_permission('CRUD_Grupperm')) throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        $data['title'] = "admin panel";
+
         switch ($yangdiinputkan) {
 
 

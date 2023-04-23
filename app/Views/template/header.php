@@ -11,5 +11,32 @@
 
     <title><?= esc($title) ?></title>
 </head>
+<style>
+    body {
+        padding: 10px;
+    }
+
+    /* a {
+
+    }
+
+    a:hover {
+
+    } */
+
+    .previous {
+        text-decoration: none;
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: #f1f1f1;
+        color: black;
+        border-radius: 5px;
+    }
+
+    .previous:hover {
+        background-color: #ddd;
+        color: black;
+    }
+</style>
 
 <body>

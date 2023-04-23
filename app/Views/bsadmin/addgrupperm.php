@@ -1,10 +1,13 @@
 <?php
 $grup = new \App\Models\Authgroup();
 $permi = new \App\Models\Authperm();
-$data['title'] = "admin panel";
 ?>
-<?= view('template/header', $data); ?>
+<?= backbutton('admin/input') ?>
+
+<?= $this->extend('template/header'); ?>
+
 <form action="<?= base_url('admin/input/groupperm') ?>" method="post">
+    <?= csrf_field() ?>
     <select name="grup" id="grup" class="form-select form-select-lg mb-3" aria-label=".form-select-lg">
         <?php foreach ($grup->seeall() as $item) : ?>
             <option value="<?= esc($item['id']) ?>"><?= esc($item['name']) ?></option>
@@ -16,7 +19,7 @@ $data['title'] = "admin panel";
             <option value="<?= esc($item['id']) ?>"><?= esc($item['name']) ?></option>
         <?php endforeach ?>
     </select>
-    <input type="submit" value="Submit">
+    <input type="submit" class="btn btn-primary" value="Submit">
 </form>
 
 <?php if (!empty($validerror)) {
@@ -57,3 +60,7 @@ $data['title'] = "admin panel";
 <?php else : ?>
     <h2>Tidak ada Data</h2>
 <?php endif ?>
+
+
+
+<?= view('template/footer'); ?>

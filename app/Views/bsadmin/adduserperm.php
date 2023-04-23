@@ -1,11 +1,14 @@
 <?php
 $users = new \App\Models\Bsusers();
 $permi = new \App\Models\Authperm();
-$data['title'] = "admin panel";
 ?>
-<?= view('template/header', $data); ?>
+<?= backbutton('admin/input') ?>
+
+<?= $this->extend('template/header'); ?>
+
 
 <form action="<?= base_url('admin/input/userperm') ?>" method="post">
+    <?= csrf_field() ?>
     <select name="User" id="User">
         <?php foreach ($users->seeall() as $item) : ?>
             <option value="<?= esc($item['id']) ?>"><?= esc($item['username']) ?></option>
@@ -17,7 +20,7 @@ $data['title'] = "admin panel";
             <option value="<?= esc($item['id']) ?>"><?= esc($item['name']) ?></option>
         <?php endforeach ?>
     </select>
-    <input type="submit" value="Submit">
+    <input type="submit" class="btn btn-primary" value="Submit">
 </form>
 
 <?php if (!empty($validerror)) {
@@ -46,8 +49,8 @@ $data['title'] = "admin panel";
                     <td><?= esc($alldata_item->permname) ?></td>
                     <td>
                         <form action="<?= base_url() ?>admin/delete/userperm" method="post">
-                            <input type="text" name="User" id="User" value="<?= esc($alldata_item->userid) ?>">
-                            <input type="text" name="userpermi" id="userpermi" value="<?= esc($alldata_item->permid) ?>">
+                            <input hidden type="text" name="User" id="User" value="<?= esc($alldata_item->userid) ?>">
+                            <input hidden type="text" name="userpermi" id="userpermi" value="<?= esc($alldata_item->permid) ?>">
                             <input type="submit" value="Delete">
                         </form>
                     </td>
@@ -58,3 +61,6 @@ $data['title'] = "admin panel";
 <?php else : ?>
     <h2>Tidak ada Data</h2>
 <?php endif ?>
+
+
+<?= view('template/footer'); ?>

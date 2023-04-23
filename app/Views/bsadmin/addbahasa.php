@@ -1,7 +1,6 @@
-<?php
-$data['title'] = "admin panel";
-?>
-<?= view('template/header', $data); ?>
+<?= $this->extend('template/header'); ?>
+<?= backbutton('admin/input') ?>
+
 
 <form action="<?= base_url() ?>admin/input/bahasa" method="post">
     <?= csrf_field() ?>
@@ -37,7 +36,7 @@ $data['title'] = "admin panel";
                     <td>
                         <form action="<?= base_url() ?>admin/delete/bahasa" method="post">
                             <input hidden type="text" name="id_bahasa" id="id_bahasa" value="<?= esc($alldata_item['idBahasa']) ?>">
-                            <input type="submit" value="Delete">
+                            <input type="submit" class="btn btn-primary" value="Delete">
                         </form>
                     </td>
                 </tr>
@@ -47,3 +46,8 @@ $data['title'] = "admin panel";
 <?php else : ?>
     <h2>Tidak ada Data</h2>
 <?php endif ?>
+
+
+
+
+<?= view('template/footer'); ?>
