@@ -31,17 +31,55 @@ class Apiv1 extends ResourceController
     {
         // http://localhost:8080/api/v1/randomsoal?bahasa=a&lvl=1&mapel=q
         // http://localhost:8080/api/v1/randomsoal?bahasa=awda&lvl=1&mapel=sdaw
+        // http://localhost:8080/api/v1/randomsoal?bahasa=awda&lvl=1&mapel=1
+        // http://localhost:8080/api/v1/randomsoal?lvl=1&mapel=1
+        // http://localhost:8080/api/v1/randomsoal?lvl=1&mapel=1&bahasa=2
         $getreq = $this->request->getGet([
             'bahasa',
             'lvl',
             'mapel'
         ]);
         // $data['bahasa'] = $getreq['bahasa'];
-        $getreq['random'] = random_int(0000, 9999);
+        // $getreq['random'] = random_int(0000, 9999);
 
-        return $this->respond($getreq);
+        $modelsoal = model(Bssoalsoal::class);
+        $data = $modelsoal->randSoalbylvl($getreq['lvl'], $getreq['mapel'], $getreq['bahasa']);
+
+        return $this->respond($data);
+        // return $this->respond($getreq);
     }
-    public function berdasarkansetsoal()
+    public function soalset()
     {
+        // http://localhost:8080/api/v1/soalset?soalset=20&lvl=1
+        // http://localhost:8080/api/v1/soalset?soalset=26&lvl=1
+        $getreq = $this->request->getGet([
+            'soalset',
+            'lvl',
+        ]);
+        $modelsoal = model(Bssoalsoal::class);
+        $data = $modelsoal->randSoalbySoalset($getreq['lvl'], $getreq['soalset']);
+        return $this->respond($data);
+    }
+
+    public function validated()
+    {
+        // http://localhost:8080/api/v1/validated?idsoal=26&jawaban=1
+        // http://localhost:8080/api/v1/validated?idsoal=15&jawaban=swfwe
+
+
+
+        $getreq = $this->request->getGet([
+            'idsoal',
+            'jawaban',
+        ]);
+
+
+        $modelsoal = model(Bssoalsoal::class);
+        if ($modelsoal->validasisoal($getreq['idsoal'], $getreq['jawaban'])) {
+            $data['jawaban'] = "BENAR";
+        } else {
+            $data['jawaban'] = "SALAH";
+        }
+        return $this->respond($data);
     }
 }

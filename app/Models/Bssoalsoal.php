@@ -69,6 +69,34 @@ class Bssoalsoal extends Model
         return $this->countAllResults();
     }
 
+    public function randSoalbylvl(int $lvl, int $mapel, int $bahasa = null)
+    {
+        if (!$bahasa == null) {
+            $data = $this->select('idSoalSoal,Pertanyaan_Soal,Penjelasan_Soal,Jawaban_Benar as jawaban1,Jawaban_salah2 as jawaban2,Jawaban_salah2 as jawaban3 , Jawaban_salah3 as jawaban4, users.username as byuser')->join('users', 'users.id=BS_SoalSoal.user_id')->where('Mapel_id', $mapel)->where('lvlsoal', $lvl)->where('Bahasa_id', $bahasa)->orderBy('idSoalSoal', 'RANDOM')->limit(1)->find();
+        } else {
+            $data = $this->select('idSoalSoal,Pertanyaan_Soal,Penjelasan_Soal,Jawaban_Benar as jawaban1,Jawaban_salah2 as jawaban2,Jawaban_salah2 as jawaban3 , Jawaban_salah3 as jawaban4, users.username as byuser')->join('users', 'users.id=BS_SoalSoal.user_id')->where('Mapel_id', $mapel)->where('lvlsoal', $lvl)->orderBy('idSoalSoal', 'RANDOM')->limit(1)->find();
+        }
+
+        return $data;
+    }
+
+    public function randSoalbySoalset(int $lvl, int $soalsetid)
+    {
+        $data = $this->select('idSoalSoal,Pertanyaan_Soal,Penjelasan_Soal,Jawaban_Benar as jawaban1,Jawaban_salah2 as jawaban2,Jawaban_salah2 as jawaban3 , Jawaban_salah3 as jawaban4, users.username as byuser')->join('users', 'users.id=BS_SoalSoal.user_id')->where('SoalSet_id', $soalsetid)->where('lvlsoal', $lvl)->orderBy('idSoalSoal', 'RANDOM')->limit(1)->find();
+        return $data;
+    }
+
+    public function validasisoal(int $idsoal, String $jawaban)
+    {
+        $data = $this->where('idSoalSoal', $idsoal)->where('Jawaban_Benar', $jawaban)->countAllResults();
+        // $data = $this->where('idSoalSoal', $idsoal)->where('Jawaban_Benar', $jawaban)->countAllResults();
+        if ($data == 1) {
+            return true;
+        }
+        return false;
+    }
+
+
     public function countdbbyuser(int $userid)
     {
         return $this->where('user_id', $userid)->countAllResults();

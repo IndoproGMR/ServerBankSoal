@@ -72,7 +72,7 @@ class Bsusers extends Model
 
     public function is_user_existByname(String $username)
     {
-        $data = $this->where('username', $username)->countAllResults();
+        // $data = $this->where('username', $username)->countAllResults();
         if ($this->where('username', $username)->countAllResults() > 0) {
             return true;
         }

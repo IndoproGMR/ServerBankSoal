@@ -64,9 +64,12 @@ $routes->get('/validator/soal/detail/(:segment)', 'UsersController::inputsoal', 
 
 //// !Apiv1
 // $routes->resource('apiv1');
-$routes->get('/api/v1/', 'Apiv1::index');
+$routes->get('/api/', 'Apiv1::index');
+$routes->get('/api/v1', 'Apiv1::index');
 $routes->get('/api/v1/randomsoal', 'Apiv1::randomsoal'); // random soal dari DB
-// $routes->get('/api/v1/soalset', 'Apiv1::soalset'); // random soal dari DB
+$routes->get('/api/v1/soalset', 'Apiv1::soalset'); // random soal dari DB
+
+$routes->get('/api/v1/validated', 'Apiv1::validated'); // validated jawaban menggunakan id soal
 
 /*
  * --------------------------------------------------------------------
