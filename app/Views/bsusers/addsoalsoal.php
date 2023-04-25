@@ -30,8 +30,9 @@ $soalset = model(Bssoalset::class);
         <div class="mb-3 row">
             <label for="Pertanyaan" class="col-sm-2 col-form-label">Soal Pertanyaan</label>
 
-            <div class="col-sm-10">
-                <textarea class="form-control" name="Pertanyaan" id="Pertanyaan" placeholder="Soal Pertanyaan"></textarea>
+            <div class="col-sm-10 form-floating">
+                <textarea style="height: 100px" class="form-control" name="Pertanyaan" id="Pertanyaan" placeholder="Soal Pertanyaan"></textarea>
+                <label for="Pertanyaan">Soal Pertanyaan</label>
                 <?= isset($validation) ? display_error($validation, "Pertanyaan") : '' ?>
 
             </div>
@@ -39,8 +40,9 @@ $soalset = model(Bssoalset::class);
 
         <div class="mb-3 row">
             <label for="Penjelasan" class="col-sm-2 col-form-label">Penjelasan Soal</label>
-            <div class="col-sm-10">
-                <textarea class="form-control" name="Penjelasan" id="Penjelasan" placeholder="Soal Penjelasan"></textarea>
+            <div class="col-sm-10 form-floating">
+                <textarea style="height: 100px" class="form-control" name="Penjelasan" id="Penjelasan" placeholder="Soal Penjelasan"></textarea>
+                <label for="Penjelasan">Soal Pertanyaan</label>
                 <?= isset($validation) ? display_error($validation, "Penjelasan") : '' ?>
             </div>
         </div>

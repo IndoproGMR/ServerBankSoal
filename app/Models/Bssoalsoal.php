@@ -69,6 +69,19 @@ class Bssoalsoal extends Model
         return $this->countAllResults();
     }
 
+
+    public function countdbbyuser(int $userid)
+    {
+        return $this->where('user_id', $userid)->countAllResults();
+    }
+
+    public function seeall()
+    {
+        return $this->find();
+    }
+
+
+    // !api start
     public function randSoalbylvl(int $lvl, int $mapel, int $bahasa = null)
     {
         if (!$bahasa == null) {
@@ -95,19 +108,23 @@ class Bssoalsoal extends Model
         }
         return false;
     }
+    // !api end
 
 
-    public function countdbbyuser(int $userid)
+    public function setsoalvalid(int $id)
     {
-        return $this->where('user_id', $userid)->countAllResults();
+        $data = [
+            'valid' => 1
+        ];
+        return $this->where('idSoalSoal', $id)->update($id, $data);
     }
 
-    public function seeall()
-    {
-        return $this->find();
-    }
+
     public function detailsoalbyid(int $id)
     {
+        if ($this->where('idSoalSoal', $id)->countAllResults() == 0) {
+            return $this->where('idSoalSoal', 0)->find();
+        }
         return $this->where('idSoalSoal', $id)->find();
     }
 

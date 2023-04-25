@@ -8,6 +8,7 @@ use App\Models\Authperm;
 use App\Models\Bsbahasa;
 use App\Models\Bslvlapi;
 use App\Models\Bsmapel;
+use App\Models\Bssoalsoal;
 use App\Models\Bsusers;
 use Myth\Auth\Models\GroupModel;
 
@@ -480,6 +481,26 @@ class Bsadmin extends BaseController
             default:
                 return redirect()->to('admin/input');
                 break;
+        }
+    }
+
+    public function validasisoal()
+    {
+        $model = model(Bssoalsoal::class);
+        $postdata = $this->request->getPost([
+            'idSoalSoal',
+        ]);
+
+        if (!$this->validateData($postdata, [
+            'idSoalSoal'      => 'required'
+        ])) {
+            $data['alldata'] = $model->detailsoalbyid($postdata['idSoalSoal']);
+            return view('bssoalsoal/detailsoal', $data);
+        }
+        $link = 'soal/detail/' . $postdata['idSoalSoal'];
+
+        if ($model->setsoalvalid($postdata['idSoalSoal'])) {
+            return redirect()->to("$link");
         }
     }
 }

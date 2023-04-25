@@ -58,8 +58,8 @@ $routes->get('/soal/detail/(:num)', 'Detailsoal::detailsoal/$1', ['filter' => 'r
 
 
 //// !validator soal
-$routes->get('/validator/soal', 'UsersController::index', ['filter' => 'role:validatorSoal,admin']); // user interface
-$routes->get('/validator/soal/detail/(:segment)', 'UsersController::inputsoal', ['filter' => 'role:validatorSoal,admin']); // mengirim soal
+$routes->post('soal/validated', 'Bsadmin::validasisoal', ['filter' => 'role:validatorSoal,admin']); // user validasisoal
+// $routes->get('/validator/soal/detail/(:segment)', 'UsersController::inputsoal', ['filter' => 'role:validatorSoal,admin']); // mengirim soal
 
 
 //// !Apiv1

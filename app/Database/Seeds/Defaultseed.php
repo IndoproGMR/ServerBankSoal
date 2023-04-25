@@ -200,15 +200,25 @@ class Defaultseed extends Seeder
 
         $data['admin'] = [
             [
-                'id' => 1,
-                'email' => 'admin@admin.com',
-                'username' => 'admin akun',
-                'password_hash' => '$argon2id$v=19$m=2048,t=4,p=4$TWt5dEhlUHFLTDFobnZmWg$nuzQHUHoXpgsJEliWrJUcOD1htzQL1uQ5RGQICUjsvM',
-                'active' => 1,
+                'id'               => 0,
+                'email'            => 'default@default.com',
+                'username'         => 'default akun',
+                'password_hash'    => '$argon2id$v=19$m=2048,t=4,p=4$aFZrZFdyYzgxUkNKZnprSw$2bv23W9WcxrJHTiRL8KpJg',
+                'active'           => 1,
                 'force_pass_reset' => 0,
-                'created_at' => '2023-04-19 16:24:10',
-                'updated_at' => '2023-04-19 16:25:03'
-            ]
+                'created_at'       => '2023-04-19 16:24:02',
+                'updated_at'       => '2023-04-19 16:25:01'
+            ],
+            [
+                'id'               => 1,
+                'email'            => 'admin@admin.com',
+                'username'         => 'admin akun',
+                'password_hash'    => '$argon2id$v=19$m=2048,t=4,p=4$TWt5dEhlUHFLTDFobnZmWg$nuzQHUHoXpgsJEliWrJUcOD1htzQL1uQ5RGQICUjsvM',
+                'active'           => 1,
+                'force_pass_reset' => 0,
+                'created_at'       => '2023-04-19 16:24:10',
+                'updated_at'       => '2023-04-19 16:25:03'
+            ],
         ];
         $data['grup'] = [
             // !admin
@@ -225,6 +235,29 @@ class Defaultseed extends Seeder
                 'user_id' => 1
             ],
         ];
+        $data['soalsoal'] = [[
+            'idSoalSoal'      => 0,
+            'Pertanyaan_Soal' => 'Pertanyaan_Soal',
+            'Penjelasan_Soal' => 'Penjelasan_Soal',
+            'Jawaban_Benar'   => 'Jawaban_Benar',
+            'Jawaban_salah1'  => 'Jawaban_salah1',
+            'Jawaban_salah2'  => 'Jawaban_salah2',
+            'Jawaban_salah3'  => 'Jawaban_salah3',
+            'lvlsoal'         => '100',
+            'valid'           => '1',
+            'edited'          => '0',
+            'user_id'         => '0',
+            'Mapel_id'        => '1',
+            'Bahasa_id'       => '1',
+            'SoalSet_id'      => '0',
+            'TimeStamp'       => '1'
+        ]];
+        $data['soalset'] = [[
+            'idSoalSet'   => 0,
+            'codeSoalSet' => 'test',
+            'user_id'     => 0,
+            'description' => 'test'
+        ]];
         // $data[''] = [[], []];
 
         $this->db->table('BS_Bahasa')->insertBatch($data['bahasa']);
@@ -235,6 +268,8 @@ class Defaultseed extends Seeder
         $this->db->table('auth_groups_permissions')->insertBatch($data['grupperm']);
         $this->db->table('users')->insertBatch($data['admin']);
         $this->db->table('auth_groups_users')->insertBatch($data['grup']);
+        $this->db->table('BS_SoalSoal')->insertBatch($data['soalsoal']);
+        $this->db->table('BS_SoalSet')->insertBatch($data['soalset']);
         // $this->db->table('auth_groups_permissions')->insertBatch($data['grupperm']);
     }
 }

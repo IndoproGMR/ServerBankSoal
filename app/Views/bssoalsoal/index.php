@@ -25,8 +25,8 @@ $data['title'] = "Home Page";
 
             <div class="card ">
                 <div class="card-body">
-                    <h5 class="card-title"><?= esc($alldata_item['Pertanyaan_Soal']) ?></h5>
-                    <p class="card-text"><?= esc($alldata_item['Penjelasan_Soal']) ?></p>
+                    <h5 class="card-title"><?= ellipsize(esc($alldata_item['Pertanyaan_Soal']), 50, 1) ?></h5>
+                    <p class="card-text"><?= ellipsize(esc($alldata_item['Penjelasan_Soal']), 50, 1) ?></p>
                     <p class="card-text">Level Soal: <?= esc($alldata_item['lvlsoal']) ?></p>
                     <a href="<?= base_url('soal/detail/') . esc($alldata_item['idSoalSoal']) ?>" class="btn btn-primary">Detail
                     </a>

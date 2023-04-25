@@ -136,14 +136,27 @@ $modelsoalset = model(Bssoalset::class);
 
 
 
+    <?php if (!$alldata[0]['valid'] == 1) : ?>
+        <h4 style="color:red ;">Soal Belum Di Validated</h4>
+
+    <?php elseif ($alldata[0]['valid'] == 1) : ?>
+        <h4 style="color:green ;">Soal Sudah Di Validated</h4>
+
+    <?php endif ?>
+
+    <?php if (has_permission('Validasi_Soal') && !$alldata[0]['valid'] == 1) : ?>
+        <form action="<?= base_url('soal/validated') ?>" method="post">
+            <input hidden type="text" name="idSoalSoal" id="idSoalSoal" value="<?= esc($alldata[0]['idSoalSoal']) ?>">
+            <input type="submit" value="Validated">
+
+        </form>
+    <?php endif ?>
 
 
 
 
-
-
-
-
+    <br>
+    <br>
 
 
 
