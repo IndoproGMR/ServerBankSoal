@@ -82,21 +82,56 @@ class Bssoalsoal extends Model
 
 
     // !api start
-    public function randSoalbylvl(int $lvl, int $mapel, int $bahasa = null)
+    public function randSoalbylvl(int $lvl, String $mapel, int $bahasa = null)
     {
         if (!$bahasa == null) {
-            $data = $this->select('idSoalSoal,Pertanyaan_Soal,Penjelasan_Soal,Jawaban_Benar as jawaban1,Jawaban_salah2 as jawaban2,Jawaban_salah2 as jawaban3 , Jawaban_salah3 as jawaban4, users.username as byuser')->join('users', 'users.id=BS_SoalSoal.user_id')->where('Mapel_id', $mapel)->where('lvlsoal', $lvl)->where('Bahasa_id', $bahasa)->orderBy('idSoalSoal', 'RANDOM')->limit(1)->find();
+            $data = $this
+                ->select('idSoalSoal,Pertanyaan_Soal,Penjelasan_Soal,Jawaban_Benar as jawaban1,Jawaban_salah1 as jawaban2,Jawaban_salah2 as jawaban3 , Jawaban_salah3 as jawaban4, users.username as byuser')
+                ->join('users', 'users.id=BS_SoalSoal.user_id')
+                ->join('BS_Mapel', 'BS_Mapel.idMapel=BS_SoalSoal.Mapel_id')
+                ->where('codeMapel', $mapel)
+                ->where('lvlsoal', $lvl)
+                ->where('Bahasa_id', $bahasa)
+                ->where('valid', 1)
+                ->orderBy('idSoalSoal', 'RANDOM')
+                ->limit(1)->find();
         } else {
-            $data = $this->select('idSoalSoal,Pertanyaan_Soal,Penjelasan_Soal,Jawaban_Benar as jawaban1,Jawaban_salah2 as jawaban2,Jawaban_salah2 as jawaban3 , Jawaban_salah3 as jawaban4, users.username as byuser')->join('users', 'users.id=BS_SoalSoal.user_id')->where('Mapel_id', $mapel)->where('lvlsoal', $lvl)->orderBy('idSoalSoal', 'RANDOM')->limit(1)->find();
+            $data = $this
+                ->select('idSoalSoal,Pertanyaan_Soal,Penjelasan_Soal,Jawaban_Benar as jawaban1,Jawaban_salah1 as jawaban2,Jawaban_salah2 as jawaban3 , Jawaban_salah3 as jawaban4, users.username as byuser')
+                ->join('users', 'users.id=BS_SoalSoal.user_id')
+                ->join('BS_Mapel', 'BS_Mapel.idMapel=BS_SoalSoal.Mapel_id')
+                ->where('codeMapel', $mapel)
+                ->where('lvlsoal', $lvl)
+                ->where('valid', 1)
+                ->orderBy('idSoalSoal', 'RANDOM')
+                ->limit(1)->find();
         }
 
-        return $data;
+        if (count($data) == 0) {
+            $data[] = [
+                'status' => 'no_soal'
+            ];
+        }
+        return $data[0];
     }
 
-    public function randSoalbySoalset(int $lvl, int $soalsetid)
+    public function randSoalbySoalset(int $lvl, string $codesoalset)
     {
-        $data = $this->select('idSoalSoal,Pertanyaan_Soal,Penjelasan_Soal,Jawaban_Benar as jawaban1,Jawaban_salah2 as jawaban2,Jawaban_salah2 as jawaban3 , Jawaban_salah3 as jawaban4, users.username as byuser')->join('users', 'users.id=BS_SoalSoal.user_id')->where('SoalSet_id', $soalsetid)->where('lvlsoal', $lvl)->orderBy('idSoalSoal', 'RANDOM')->limit(1)->find();
-        return $data;
+        $data = $this
+            ->select('idSoalSoal,Pertanyaan_Soal,Penjelasan_Soal,Jawaban_Benar as jawaban1,Jawaban_salah2 as jawaban2,Jawaban_salah2 as jawaban3 , Jawaban_salah3 as jawaban4, users.username as byuser')
+            ->join('users', 'users.id=BS_SoalSoal.user_id')
+            ->join('BS_SoalSet', 'BS_SoalSet.idSoalSet=BS_SoalSoal.SoalSet_id')
+            ->where('codeSoalSet', $codesoalset)
+            ->where('lvlsoal', $lvl)
+            ->orderBy('idSoalSoal', 'RANDOM')
+            ->limit(1)->find();
+
+        if (count($data) == 0) {
+            $data[] = [
+                'status' => 'no_soal'
+            ];
+        }
+        return $data[0];
     }
 
     public function validasisoal(int $idsoal, String $jawaban)

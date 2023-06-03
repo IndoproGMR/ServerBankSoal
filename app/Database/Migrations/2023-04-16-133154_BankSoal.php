@@ -25,8 +25,9 @@ class BankSoal extends Migration
         $idd = "id$tablee";
         $fields = [
             $idd          => ['type' => 'int', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
-            'NamaMapel'  => ['type' => 'varchar', 'constraint' => 255],
+            'NamaMapel'   => ['type' => 'varchar', 'constraint' => 255],
             'description' => ['type' => 'varchar', 'constraint' => 255],
+            'codeMapel'   => ['type' => 'varchar', 'constraint' => 8],
         ];
         $this->forge->addField($fields);
         $this->forge->addKey($idd, true);

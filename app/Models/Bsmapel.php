@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use PhpParser\Node\Expr\Cast\String_;
 
 class Bsmapel extends Model
 {
@@ -16,7 +17,8 @@ class Bsmapel extends Model
     protected $protectFields    = true;
     protected $allowedFields    = [
         'NamaMapel',
-        'description'
+        'description',
+        'codeMapel'
     ];
 
     public function countdb()
@@ -24,11 +26,12 @@ class Bsmapel extends Model
         return $this->countAllResults();
     }
 
-    public function addmapel(String $name, String $diskripsi)
+    public function addmapel(String $name, String $diskripsi, String $codeMapel)
     {
         return $this->db->table('BS_Mapel')->insert([
             'NamaMapel'   => $name,
             'description' => $diskripsi,
+            'codeMapel'   => $codeMapel,
         ]);
     }
 

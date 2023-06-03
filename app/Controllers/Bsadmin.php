@@ -200,18 +200,20 @@ class Bsadmin extends BaseController
                 $data['alldata'] = $model->seeall();
                 $postdata = $this->request->getPost([
                     'nama_mapel',
-                    'diskripsi_mapel'
+                    'diskripsi_mapel',
+                    'codeMapel',
                 ]);
 
                 if (!$this->validateData($postdata, [
                     'nama_mapel'      => 'required|max_length[255]|min_length[2]',
-                    'diskripsi_mapel' => 'required|max_length[255]|min_length[3]'
+                    'diskripsi_mapel' => 'required|max_length[255]|min_length[3]',
+                    'codeMapel'       => 'required|max_length[8]|min_length[2]',
                 ])) {
                     $data['validerror'] = "mohon isi dengan benar";
                     return view('bsadmin/addmapel', $data);
                 }
 
-                if ($model->addmapel($postdata['nama_mapel'], $postdata['diskripsi_mapel'])) {
+                if ($model->addmapel($postdata['nama_mapel'], $postdata['diskripsi_mapel'], $postdata['codeMapel'])) {
                     return redirect()->to('admin/input/mapel');
                 }
 

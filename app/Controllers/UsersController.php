@@ -97,7 +97,7 @@ class UsersController extends BaseController
                 $validation = $this->validate(
                     [
                         'Pertanyaan' => [
-                            'rules' => 'required|max_length[500]|min_length[3]|is_unique[BS_SoalSoal.Pertanyaan_Soal]',
+                            'rules' => 'required|max_length[500]|min_length[1]|is_unique[BS_SoalSoal.Pertanyaan_Soal]',
                             'errors' => [
                                 'required'  => 'Tolong isi Soal Anda',
                                 'is_unique' => 'Soal Sudah Pernah di tambahkan tolong periksa kembali',
@@ -106,7 +106,7 @@ class UsersController extends BaseController
                             ]
                         ],
                         'Penjelasan' => [
-                            'rules' => 'required|max_length[500]|min_length[3]',
+                            'rules' => 'required|max_length[500]|min_length[1]',
                             'errors' => [
                                 'required' => 'Tolong isi penjelasan Anda',
                                 'max_length' => 'Tolong isi data benar',
@@ -114,7 +114,7 @@ class UsersController extends BaseController
                             ]
                         ],
                         'Benar' => [
-                            'rules' => 'required|max_length[255]|min_length[3]',
+                            'rules' => 'required|max_length[255]|min_length[1]',
                             'errors' => [
                                 'required' => 'Tolong isi Jawaban Benar Anda',
                                 'max_length' => 'Tolong isi data benar',
@@ -122,7 +122,7 @@ class UsersController extends BaseController
                             ]
                         ],
                         'salah1' => [
-                            'rules' => 'required|max_length[255]|min_length[3]',
+                            'rules' => 'required|max_length[255]|min_length[1]',
                             'errors' => [
                                 'required' => 'Tolong isi Jawaban salah1 Anda',
                                 'max_length' => 'Tolong isi data benar',
@@ -130,7 +130,7 @@ class UsersController extends BaseController
                             ]
                         ],
                         'salah2' => [
-                            'rules' => 'required|max_length[255]|min_length[3]',
+                            'rules' => 'required|max_length[255]|min_length[1]',
                             'errors' => [
                                 'required' => 'Tolong isi Jawaban salah2 Anda',
                                 'max_length' => 'Tolong isi data benar',
@@ -138,7 +138,7 @@ class UsersController extends BaseController
                             ]
                         ],
                         'salah3' => [
-                            'rules' => 'required|max_length[255]|min_length[3]',
+                            'rules' => 'required|max_length[255]|min_length[1]',
                             'errors' => [
                                 'required' => 'Tolong isi Jawaban salah3 Anda',
                                 'max_length' => 'Tolong isi data benar',
@@ -191,9 +191,9 @@ class UsersController extends BaseController
                     $postdata['bahasa'],
                     $postdata['codesoalset'],
                 )) {
-                    return redirect()->to('soal/input/soalsoal');
+                    return redirect()->to('soal/input/soal');
                 }
-                return redirect()->to('soal/input/soalsoal');
+                return redirect()->to('soal/input/soal');
                 break;
 
             case 'soalset':
@@ -214,7 +214,7 @@ class UsersController extends BaseController
                             'rules'  => 'required|max_length[8]|min_length[8]|is_unique[BS_SoalSet.codeSoalSet]',
                             'errors' => [
                                 'required'   => 'Tolong isi Soal Anda',
-                                'is_unique'  => 'Soal Sudah Pernah di tambahkan tolong periksa kembali',
+                                'is_unique'  => 'CodeSoalSet Sudah Pernah di tambahkan tolong periksa kembali',
                                 'max_length' => 'Tolong isi data benar',
                                 'min_length' => 'Tolong isi data benar',
                             ]

@@ -29,11 +29,14 @@ class Apiv1 extends ResourceController
 
     public function randomsoal()
     {
-        // http://localhost:8080/api/v1/randomsoal?bahasa=a&lvl=1&mapel=q
-        // http://localhost:8080/api/v1/randomsoal?bahasa=awda&lvl=1&mapel=sdaw
-        // http://localhost:8080/api/v1/randomsoal?bahasa=awda&lvl=1&mapel=1
-        // http://localhost:8080/api/v1/randomsoal?lvl=1&mapel=1
-        // http://localhost:8080/api/v1/randomsoal?lvl=1&mapel=1&bahasa=2
+        // http://localhost:8080/api/v1/randomsoal?bahasa=a&lvl=1&mapel=General
+        // http://localhost:8080/api/v1/randomsoal?bahasa=awda&lvl=1&mapel=General
+        // http://localhost:8080/api/v1/randomsoal?bahasa=awda&lvl=1&mapel=General
+        // http://localhost:8080/api/v1/randomsoal?lvl=1&mapel=General
+        // http://localhost:8080/api/v1/randomsoal?lvl=1&mapel=General&bahasa=2
+
+
+        //http://localhost:8080/api/v1/randomsoal?lvl=1&mapel=General
         $getreq = $this->request->getGet([
             'bahasa',
             'lvl',
@@ -52,6 +55,8 @@ class Apiv1 extends ResourceController
     {
         // http://localhost:8080/api/v1/soalset?soalset=20&lvl=1
         // http://localhost:8080/api/v1/soalset?soalset=26&lvl=1
+
+        // http://localhost:8080/api/v1/soalset?soalset=82Nj1fBO&lvl=1
         $getreq = $this->request->getGet([
             'soalset',
             'lvl',

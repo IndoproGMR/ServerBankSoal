@@ -33,7 +33,7 @@ $modelsoalset = model(Bssoalset::class);
     <div class="mb-3 row">
         <label for="staticEmail" class="col-sm-2 col-form-label">Pertanyaan:</label>
         <div class="col-sm-10">
-            <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="<?= esc($alldata[0]['Pertanyaan_Soal']) ?>">
+            <textarea readonly class="form-control" cols="3" rows="4"><?= esc($alldata[0]['Pertanyaan_Soal']) ?></textarea>
         </div>
     </div>
 
@@ -41,7 +41,7 @@ $modelsoalset = model(Bssoalset::class);
     <div class="mb-3 row">
         <label for="staticEmail" class="col-sm-2 col-form-label">Pertanyaan:</label>
         <div class="col-sm-10">
-            <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="<?= esc($alldata[0]['Penjelasan_Soal']) ?>">
+            <textarea readonly class="form-control" cols="3" rows="4"><?= esc($alldata[0]['Penjelasan_Soal']) ?></textarea>
         </div>
     </div>
 
@@ -51,7 +51,8 @@ $modelsoalset = model(Bssoalset::class);
         <div class="mb-3 row">
             <label for="staticEmail" class="col-sm-2 col-form-label">Jawaban_Benar:</label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="<?= esc($alldata[0]['Jawaban_Benar']) ?>">
+                <textarea readonly class="form-control" cols="3" rows="4"><?= esc($alldata[0]['Jawaban_Benar']) ?></textarea>
+
             </div>
         </div>
 
@@ -59,7 +60,7 @@ $modelsoalset = model(Bssoalset::class);
         <div class="mb-3 row">
             <label for="staticEmail" class="col-sm-2 col-form-label">Jawaban_salah1:</label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="<?= esc($alldata[0]['Jawaban_salah1']) ?>">
+                <textarea readonly class="form-control" cols="3" rows="4"><?= esc($alldata[0]['Jawaban_salah1']) ?></textarea>
             </div>
         </div>
 
@@ -68,7 +69,7 @@ $modelsoalset = model(Bssoalset::class);
         <div class="mb-3 row">
             <label for="staticEmail" class="col-sm-2 col-form-label">Jawaban_salah2:</label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="<?= esc($alldata[0]['Jawaban_salah2']) ?>">
+                <textarea readonly class="form-control" cols="3" rows="4"><?= esc($alldata[0]['Jawaban_salah2']) ?></textarea>
             </div>
         </div>
 
@@ -76,7 +77,7 @@ $modelsoalset = model(Bssoalset::class);
         <div class="mb-3 row">
             <label for="staticEmail" class="col-sm-2 col-form-label">Jawaban_salah3:</label>
             <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="<?= esc($alldata[0]['Jawaban_salah3']) ?>">
+                <textarea readonly class="form-control" cols="3" rows="4"><?= esc($alldata[0]['Jawaban_salah3']) ?></textarea>
             </div>
         </div>
 
@@ -146,6 +147,7 @@ $modelsoalset = model(Bssoalset::class);
 
     <?php if (has_permission('Validasi_Soal') && !$alldata[0]['valid'] == 1) : ?>
         <form action="<?= base_url('soal/validated') ?>" method="post">
+            <?= csrf_field() ?>
             <input hidden type="text" name="idSoalSoal" id="idSoalSoal" value="<?= esc($alldata[0]['idSoalSoal']) ?>">
             <input type="submit" value="Validated">
 
